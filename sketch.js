@@ -20,6 +20,9 @@ let angleX = 0.5;
 let angleY = 2.1;
 const sensitivity = 0.001;
 
+let playerPos;
+let playerSpeed = 5;
+
 function setup() {
   createCanvas(500, 500, WEBGL);
   cam = createCamera();
@@ -29,6 +32,8 @@ function setup() {
   realStroke = color(255);
   fogColor = color(240);
   fogStroke = color(240);
+
+  playerPos = createVector(60, 0, 50);
 
   strokeWeight(0.5);
 }
@@ -54,11 +59,31 @@ function draw() {
       mouse_was_pressed = false;
     }
   }
+  // player control
+
+  if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
+    playerPos.x -= playerSpeed;
+  }
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
+    playerPos.z -= playerSpeed;
+  }  
+  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
+    playerPos.z += playerSpeed;
+  }
+  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
+    playerPos.x += playerSpeed;
+  }
+  if (keyIsDown(32)) {
+    playerPos.y += playerSpeed;
+  }
+  if (keyIsDown(16)) {
+    playerPos.y -= playerSpeed;
+  }
   
 
   currentPenPos = createVector(0, 0, 0);
   // offset per non essere al centro di un cubo
-  ciao(cube_l+cube_dist +60, cube_l+cube_dist, cube_l+cube_dist + 50);
+  ciao(cube_l+cube_dist + playerPos.x, cube_l+cube_dist + playerPos.y, cube_l+cube_dist + playerPos.z);
 
   // costruzione griglia
   ciao(-n_cubes*(cube_l+cube_dist)/2, -n_cubes*(cube_l+cube_dist)/2, -n_cubes*(cube_l+cube_dist)/2);
