@@ -24,7 +24,8 @@ let playerPos;
 let playerSpeed = 5;
 
 function setup() {
-  createCanvas(500, 500, WEBGL);
+  let cnv = createCanvas(500, 500, WEBGL);
+  cnv.parent('sketch-holder');
   cam = createCamera();
   cam.setPosition(0, 0, 0);
 
